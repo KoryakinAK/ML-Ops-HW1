@@ -13,3 +13,9 @@ docker push
 docker pull sampledockerusername/ml-homework
 docker compose up
 ```
+
+Что есть: 
+* Базовый набор API
+* Управляющий записью/считыванием моделей класс
+* Docker image на докерхабе 
+* docker-compose c зачатками появления БД

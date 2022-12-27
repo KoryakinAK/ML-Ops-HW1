@@ -3,16 +3,10 @@ from flask_restx import Api, Resource, fields, reqparse
 from sklearn.dummy import DummyClassifier
 import numpy as np
 from werkzeug.datastructures import FileStorage
-import api.modelsManager
+from api import modelsManager
 app = Flask("ML-OPS")
 api = Api(app)
-
-availableClasses = {
-    "dummyClassifier": ["strategy", "constant"],
-    "dummyRegressor": ["strategy"]
-}
-
-trainedModels = {}
+manager = modelsManager.ModelsManager()
 
 # /getAvailableModels
 get_ready_to_train_models_parser = reqparse.RequestParser()
@@ -45,7 +39,7 @@ class GetReadyToTrainModelsResource(Resource):
 class GetTrainedModelsListResource(Resource):
     @api.expect(get_trained_models_list_parser)
     def get(self):
-        return trainedModels, 200
+        return manager.getTrainedModels(), 200
 
 # Create a resource class for the /train/<modelName> endpoint
 class TrainResource(Resource):
